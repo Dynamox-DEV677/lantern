@@ -1,0 +1,14 @@
+{
+  "name": "lantern",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A power-cut log for one street. Works with no network.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "node scripts/test-logic.mjs",
+    "icons": "node scripts/make-icons.mjs"
+  },
+  "license": "MIT"
+}
