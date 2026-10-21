@@ -36,7 +36,9 @@ main {
 p { margin: 0 0 0.6rem; }
 h2 { font-size: 1.3rem; line-height: 1.3; margin: 0 0 0.5rem; }
 
-.top { text-align: center; padding: 0.6rem 0 1rem; }
+.top { text-align: center; padding: 0.4rem 0 0.6rem; }
+[data-view="out"] .top { padding-bottom: 0; }
+[data-view="out"] .lantern { width: 48px; height: 72px; }
 .title { font-size: 1.6rem; line-height: 1.25; margin: 0.4rem 0 0; }
 .status {
   font-size: clamp(2.4rem, 13vw, 3.4rem);

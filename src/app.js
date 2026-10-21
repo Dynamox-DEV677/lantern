@@ -93,7 +93,9 @@ function backButton() {
 
 function viewLang() {
   return `
-    <header class="top"><h1 tabindex="-1" class="title">भाषा निवडा · भाषा चुनें · Choose language</h1></header>
+    <header class="top">${lantern(true)}<h1 tabindex="-1" class="title">
+      <span lang="mr">भाषा निवडा</span><br><span lang="hi">भाषा चुनें</span><br><span lang="en">Choose language</span>
+    </h1></header>
     <div class="stack">
       ${LANGS.map(
         (l) =>

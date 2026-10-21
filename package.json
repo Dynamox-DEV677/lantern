@@ -7,8 +7,12 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "serve": "node scripts/serve.mjs",
-    "test": "node scripts/test-logic.mjs",
+    "test": "node scripts/test-logic.mjs && node scripts/test-sql.mjs",
+    "qa:offline": "node scripts/build.mjs && node scripts/qa-offline.mjs",
     "icons": "node scripts/make-icons.mjs"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.10"
+  }
 }

@@ -19,7 +19,9 @@ if (existsSync(envFile)) process.loadEnvFile(envFile);
 
 const url = (process.env.LANTERN_SUPABASE_URL || '').trim().replace(/\/+$/, '');
 const key = (process.env.LANTERN_SUPABASE_KEY || '').trim();
-if (url && !/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url)) {
+// LANTERN_ALLOW_LOCAL=1 lets tests point at scripts/mock-supabase.mjs.
+const local = process.env.LANTERN_ALLOW_LOCAL === '1' && /^http:\/\/localhost:\d+$/.test(url);
+if (url && !local && !/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url)) {
   console.error(`LANTERN_SUPABASE_URL doesn't look like https://<ref>.supabase.co: ${url}`);
   process.exit(1);
 }
