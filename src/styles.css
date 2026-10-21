@@ -22,7 +22,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Devanagari", "Nirmala UI", sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Tamil", "Noto Sans Devanagari", "Nirmala UI", sans-serif;
   line-height: 1.5;
   -webkit-tap-highlight-color: transparent;
 }
@@ -48,7 +48,9 @@ h2 { font-size: 1.3rem; line-height: 1.3; margin: 0 0 0.5rem; }
   margin: 0.4rem 0 0.5rem;
   text-transform: uppercase;
 }
-:lang(mr) .status, :lang(hi) .status { text-transform: none; line-height: 1.25; }
+:lang(ta) .status, :lang(hi) .status { text-transform: none; line-height: 1.25; }
+/* Tamil words run long: keep the status on screen without shrinking it below readable. */
+:lang(ta) .status { font-size: clamp(2.1rem, 11vw, 3rem); }
 .since { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.2rem; }
 .muted { color: var(--muted); font-size: 0.9rem; }
 .big-text { font-size: 1.3rem; font-weight: 700; }
@@ -140,6 +142,7 @@ h1:focus { outline: none; }
   border-color: var(--text);
 }
 .back .icon { width: 56px; height: 56px; flex: none; }
+:lang(ta) .back { font-size: 1.3rem; }
 .icon .light { fill: var(--amber); }
 .icon .ray { stroke: var(--amber); }
 .icon-sm { width: 1.3em; height: 1.3em; flex: none; }
@@ -186,6 +189,8 @@ h1:focus { outline: none; }
 .error:empty { display: none; }
 
 .stack { display: flex; flex-direction: column; gap: 0.2rem; }
+.langs { display: flex; gap: 0.5rem; }
+.langs .btn { flex: 1; margin: 0; padding: 0.4rem; font-size: 1rem; }
 label { display: flex; flex-direction: column; gap: 0.3rem; font-weight: 600; margin-bottom: 0.4rem; }
 input {
   font: inherit;

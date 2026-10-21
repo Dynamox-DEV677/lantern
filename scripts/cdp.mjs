@@ -70,7 +70,8 @@ export async function launch({ debugPort = 9333, width = 375, height = 812, shot
     js,
     shot,
     goto: (url) => send('Page.navigate', { url }),
-    reload: () => send('Page.reload', { ignoreCache: true }),
+    // A normal reload, like reopening the app. A hard reload (ignoreCache) can skip the service worker.
+    reload: () => send('Page.reload', {}),
     click: (selector) => js(`document.querySelector(${JSON.stringify(selector)}).click()`),
     text: (selector) => js(`(document.querySelector(${JSON.stringify(selector)}) || {}).innerText || ''`),
     view: () => js(`document.getElementById('app').dataset.view`),

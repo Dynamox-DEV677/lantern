@@ -38,7 +38,7 @@ const status = (device, area = AREA) => rpc('lantern_area_status', device, area)
 
 const dev = (c) => c.repeat(32);
 const [A, B, C, D, E] = ['a', 'b', 'c', 'd', 'e'].map(dev);
-const AREA = '411038-shanti-nagar';
+const AREA = '600041-gandhi-nagar';
 let passed = 0;
 const ok = (name) => {
   passed++;

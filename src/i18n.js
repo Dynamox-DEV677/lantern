@@ -1,25 +1,25 @@
-// Every word on screen. Marathi first, then Hindi, then English — in that order, in Maharashtra.
-// The Marathi and Hindi are first drafts: have a native speaker read them before relying on them.
+// Every word on screen. English by default; Tamil and Hindi one tap away. Chennai.
+// The Tamil and Hindi are first drafts: have a native speaker read them before relying on them.
 
 // The electricity board. Change these lines for another state.
 export const REGION = {
-  phone: '1912',
-  utility: { mr: 'महावितरण', hi: 'महावितरण', en: 'MSEDCL' },
+  phone: '9498794987', // TNPDCL's 24-hour Minnagam complaint line
+  phoneLabel: '94987 94987',
+  utility: { en: 'the EB', ta: 'மின்வாரியம்', hi: 'EB' },
 };
 
 export const LANGS = [
-  { code: 'mr', name: 'मराठी', locale: 'mr-IN-u-nu-latn' },
-  { code: 'hi', name: 'हिंदी', locale: 'hi-IN-u-nu-latn' },
   { code: 'en', name: 'English', locale: 'en-IN' },
+  { code: 'ta', name: 'தமிழ்', locale: 'ta-IN-u-nu-latn' },
+  { code: 'hi', name: 'हिंदी', locale: 'hi-IN-u-nu-latn' },
 ];
 
 const en = {
-  lang_title: 'Choose language',
   setup_area_title: 'Where is your home?',
   setup_area_why: "Lantern counts your report together with your neighbours', so it can tell whether it's just your home or the whole area.",
-  setup_privacy: 'Only a pincode and a building or lane name. No name, no phone number, no GPS, no account.',
+  setup_privacy: 'Only a pincode and a building or street name. No name, no phone number, no GPS, no account.',
   pincode: 'Pincode',
-  place: 'Building or lane name',
+  place: 'Building or street name',
   place_hint: 'Use the same name your neighbours will use — or send them your invite link.',
   continue: 'Continue',
   solo: 'Use it on my own for now',
@@ -27,7 +27,7 @@ const en = {
   join_yes: 'Join',
   join_other: 'Enter a different area',
   pin_invalid: 'Enter a 6-digit pincode.',
-  place_required: 'Enter your building or lane name.',
+  place_required: 'Enter your building or street name.',
 
   on_status: 'Power is on',
   on_last: 'Last cut: {when}, {dur}',
@@ -84,6 +84,7 @@ const en = {
   b_weekend_night: 'weekend nights',
 
   report_title: 'Has anyone told {utility}?',
+  report_line: 'TNPDCL Minnagam · 24 hours',
   report_none: 'No one here has said they called yet.',
   report_done: 'A neighbour called {utility} at {time}. No need to call again.',
   report_me: 'You called {utility} at {time}.',
@@ -94,7 +95,6 @@ const en = {
 
   ask_title: 'Is the power back?',
   ask_body: "You tapped 'Power just went' at {time}.",
-  ask_when: 'When did it come back?',
   ask_now: 'Yes — just now',
   ask_hour: 'Yes — about an hour ago',
   ask_unsure: "Yes, but I'm not sure when",
@@ -156,151 +156,150 @@ const en = {
   install: 'Add Lantern to home screen',
 };
 
-const mr = {
-  lang_title: 'भाषा निवडा',
-  setup_area_title: 'तुमचं घर कुठे आहे?',
-  setup_area_why: 'Lantern तुमची नोंद शेजाऱ्यांच्या नोंदींसोबत मोजतं — म्हणजे वीज फक्त तुमच्या घरची गेली की पूर्ण भागाची, ते कळतं.',
-  setup_privacy: 'फक्त पिनकोड आणि इमारत किंवा गल्लीचं नाव. नाव नाही, फोन नंबर नाही, GPS नाही, खातं नाही.',
-  pincode: 'पिनकोड',
-  place: 'इमारत किंवा गल्लीचं नाव',
-  place_hint: 'शेजारी वापरतील तेच नाव लिहा — किंवा त्यांना तुमची आमंत्रण लिंक पाठवा.',
-  continue: 'पुढे',
-  solo: 'सध्या एकट्याने वापरा',
-  join_title: 'शेजाऱ्यांसोबत जोडायचं?',
-  join_yes: 'जोडा',
-  join_other: 'वेगळा भाग लिहा',
-  pin_invalid: '6 अंकी पिनकोड लिहा.',
-  place_required: 'इमारत किंवा गल्लीचं नाव लिहा.',
+// Tamil as it's spoken in Chennai: "கரண்ட் போச்சு", not the textbook "மின்சாரம் தடைபட்டது".
+const ta = {
+  setup_area_title: 'உங்கள் வீடு எங்கே இருக்கு?',
+  setup_area_why: 'Lantern உங்கள் தகவலை அக்கம்பக்கத்தினரின் தகவலோடு சேர்த்து எண்ணும் — அதனால் கரண்ட் உங்கள் வீட்டில் மட்டும் போனதா, முழு ஏரியாவிலும் போனதா என்று தெரியும்.',
+  setup_privacy: 'பின்கோடும் கட்டடம் அல்லது தெருவின் பெயரும் மட்டும். பெயர் இல்லை, போன் நம்பர் இல்லை, GPS இல்லை, கணக்கு இல்லை.',
+  pincode: 'பின்கோடு',
+  place: 'கட்டடம் அல்லது தெருவின் பெயர்',
+  place_hint: 'அக்கம்பக்கத்தினர் எழுதும் அதே பெயரை எழுதுங்கள் — அல்லது அவர்களுக்கு உங்கள் அழைப்பு லிங்கை அனுப்புங்கள்.',
+  continue: 'தொடரவும்',
+  solo: 'இப்போதைக்கு நான் மட்டும் பயன்படுத்துகிறேன்',
+  join_title: 'அக்கம்பக்கத்தினருடன் சேரலாமா?',
+  join_yes: 'சேருங்கள்',
+  join_other: 'வேறு ஏரியாவை எழுதுங்கள்',
+  pin_invalid: '6 இலக்க பின்கோடை எழுதுங்கள்.',
+  place_required: 'கட்டடம் அல்லது தெருவின் பெயரை எழுதுங்கள்.',
 
-  on_status: 'वीज आहे',
-  on_last: 'मागच्या वेळी: {when}, {dur}',
-  on_last_unknown: 'मागच्या वेळी: {when}, किती वेळ ते माहीत नाही',
-  on_none: 'अजून एकही नोंद नाही.',
-  btn_out: 'वीज गेली',
-  btn_out_aria: 'वीज गेली. वीज गेल्याची नोंद करण्यासाठी दाबा.',
-  btn_back: 'वीज आली',
-  btn_back_aria: 'वीज आली. वीज परत आल्यावर दाबा.',
+  on_status: 'கரண்ட் இருக்கு',
+  on_last: 'கடைசியாக: {when}, {dur}',
+  on_last_unknown: 'கடைசியாக: {when}, எவ்வளவு நேரம் என்று தெரியாது',
+  on_none: 'இன்னும் எதுவும் பதிவாகவில்லை.',
+  btn_out: 'கரண்ட் போச்சு',
+  btn_out_aria: 'கரண்ட் போச்சு. கரண்ட் போனதைப் பதிவு செய்ய அழுத்துங்கள்.',
+  btn_back: 'கரண்ட் வந்துடுச்சு',
+  btn_back_aria: 'கரண்ட் வந்துடுச்சு. கரண்ட் திரும்ப வந்ததும் அழுத்துங்கள்.',
 
-  out_status: 'वीज गेली आहे',
-  out_since: '{dur} झाले',
-  out_started: '{time} पासून',
-  just_now: 'आत्ताच',
-  undo: 'चुकून दाबलं? रद्द करा',
-  undone: 'काढून टाकलं.',
-  back_done: '{dur} नंतर वीज आली.',
-  today: 'आज',
-  yesterday: 'काल',
+  out_status: 'கரண்ட் இல்லை',
+  out_since: '{dur} ஆச்சு',
+  out_started: '{time} முதல்',
+  just_now: 'இப்போதுதான்',
+  undo: 'தவறுதலாக அழுத்தினீர்களா? நீக்குங்கள்',
+  undone: 'நீக்கப்பட்டது.',
+  back_done: '{dur} கழித்து கரண்ட் வந்தது.',
+  today: 'இன்று',
+  yesterday: 'நேற்று',
 
-  verdict_unknown: 'सांगता येईल इतके शेजारी अजून Lantern वापरत नाहीत.',
-  verdict_unknown_do: 'खिडकीतून बघा — आजूबाजूच्या घरांतही अंधार आहे का?',
-  verdict_need: 'इथे 3 फोन लागतात. आत्ता {n} आहेत.',
-  verdict_mcb_link: 'शेजारी दिवे चालू आहेत? तुमचा MCB बोर्ड तपासा',
-  verdict_area_most: 'जवळच्या {users} पैकी {out} जणांची वीज गेली आहे — पूर्ण भागाची वीज गेली आहे.',
-  verdict_area_some: 'जवळच्या {users} पैकी {out} जणांची वीज गेली आहे — फक्त तुमची नाही.',
-  verdict_area_do: 'घरात काही तपासायची गरज नाही.',
-  verdict_only: 'कदाचित फक्त तुमचीच वीज गेली आहे.',
-  verdict_only_sub: 'जवळचे आणखी {others} जण Lantern वापरतात, आणि त्यांच्यापैकी कोणीही वीज गेल्याचं कळवलेलं नाही.',
-  verdict_back_others: 'जवळच्या {n} जणांनी वीज आल्याचं कळवलं आहे.',
-  offline_status: 'इंटरनेट नाही — आत्ता शेजाऱ्यांचं कळू शकत नाही.',
-  checked_at: 'शेवटचं तपासलं: {time}',
-  checking: 'शेजाऱ्यांचं तपासत आहे…',
-  no_area: 'तुम्ही Lantern एकट्याने वापरत आहात. शेजाऱ्यांची वीज गेली का ते कळण्यासाठी तुमचा भाग जोडा.',
-  add_area: 'तुमचा भाग जोडा',
+  verdict_unknown: 'சொல்லும் அளவுக்கு அக்கம்பக்கத்தினர் இன்னும் Lantern பயன்படுத்தவில்லை.',
+  verdict_unknown_do: 'ஜன்னல் வழியாகப் பாருங்கள் — பக்கத்து வீடுகளிலும் இருட்டாக இருக்கிறதா?',
+  verdict_need: 'இங்கே 3 போன்கள் வேண்டும். இப்போது {n} உள்ளன.',
+  verdict_mcb_link: 'பக்கத்து வீட்டில் லைட் எரிகிறதா? உங்கள் MCB போர்டைப் பாருங்கள்',
+  verdict_area_most: 'அருகிலுள்ள {users} பேரில் {out} பேருக்கு கரண்ட் இல்லை — முழு ஏரியாவிலும் போயிருக்கிறது.',
+  verdict_area_some: 'அருகிலுள்ள {users} பேரில் {out} பேருக்கு கரண்ட் இல்லை — உங்களுக்கு மட்டும் இல்லை.',
+  verdict_area_do: 'வீட்டுக்குள் எதையும் சரிசெய்ய வேண்டியதில்லை.',
+  verdict_only: 'ஒருவேளை உங்களுக்கு மட்டும்தான் கரண்ட் போயிருக்கலாம்.',
+  verdict_only_sub: 'அருகில் இன்னும் {others} பேர் Lantern பயன்படுத்துகிறார்கள்; அவர்களில் யாரும் கரண்ட் போனதாகச் சொல்லவில்லை.',
+  verdict_back_others: 'அருகிலுள்ள {n} பேர் தங்களுக்கு கரண்ட் வந்துவிட்டதாகச் சொல்கிறார்கள்.',
+  offline_status: 'இன்டர்நெட் இல்லை — இப்போது அக்கம்பக்கத்தைப் பார்க்க முடியாது.',
+  checked_at: 'கடைசியாகப் பார்த்தது: {time}',
+  checking: 'அக்கம்பக்கத்தைப் பார்க்கிறது…',
+  no_area: 'நீங்கள் Lantern-ஐ தனியாகப் பயன்படுத்துகிறீர்கள். அக்கம்பக்கத்தினருக்கும் கரண்ட் போனதா என்று தெரிய, உங்கள் ஏரியாவைச் சேருங்கள்.',
+  add_area: 'உங்கள் ஏரியாவைச் சேருங்கள்',
 
-  mcb_1: 'तुमचा MCB बोर्ड तपासा — एखादा स्विच खाली गेला असेल (MCB trip झाला असेल), तर तो वर करा.',
-  mcb_warn: 'तो लगेच पुन्हा trip झाला, तर थांबा. पुन्हा पुन्हा वर करू नका. याचा अर्थ कुठेतरी बिघाड आहे — इलेक्ट्रिशियनला बोलवा.',
-  mcb_rccb: 'RCCB/ELCB trip झाला असेल, तर तो अर्थ-लीकेजचा बिघाड आहे. तो वारंवार अजिबात वर करू नका.',
-  mcb_last: 'सगळे स्विच वर आहेत आणि तरी वीज नाही? मीटर तपासा, मग {utility} ला {phone} वर फोन करा.',
+  mcb_1: 'உங்கள் MCB போர்டைப் பாருங்கள் — ஏதாவது சுவிட்ச் கீழே இறங்கியிருந்தால் (MCB trip ஆகியிருந்தால்), அதை மேலே தூக்குங்கள்.',
+  mcb_warn: 'உடனே மறுபடியும் trip ஆனால், நிறுத்துங்கள். திரும்பத் திரும்ப மேலே தூக்காதீர்கள். எங்கோ கோளாறு இருக்கிறது என்று அர்த்தம் — எலக்ட்ரீஷியனைக் கூப்பிடுங்கள்.',
+  mcb_rccb: 'RCCB/ELCB trip ஆகியிருந்தால், அது மின்கசிவு (earth leakage) கோளாறு. அதைத் திரும்பத் திரும்ப மேலே தூக்கவே கூடாது.',
+  mcb_last: 'எல்லா சுவிட்சும் மேலே இருந்தும் கரண்ட் இல்லையா? மீட்டரைப் பாருங்கள், பிறகு மின்வாரியத்தை {phone} எண்ணில் அழையுங்கள்.',
 
-  est_bucket: '{bucket} इथे वीज साधारण {dur} जाते.',
-  est_all: 'इथे वीज साधारण {dur} जाते.',
-  est_n: 'मागच्या {n} वेळांवरून.',
-  est_longer: 'या वेळी नेहमीपेक्षा जास्त वेळ झाला आहे.',
-  est_none: 'ही किती वेळ चालेल ते सांगण्याइतक्या मागच्या नोंदी अजून नाहीत.',
-  b_weekday_morning: 'आठवड्याच्या दिवशी सकाळी',
-  b_weekday_afternoon: 'आठवड्याच्या दिवशी दुपारी',
-  b_weekday_evening: 'आठवड्याच्या दिवशी संध्याकाळी',
-  b_weekday_night: 'आठवड्याच्या दिवशी रात्री',
-  b_weekend_morning: 'शनिवार-रविवारी सकाळी',
-  b_weekend_afternoon: 'शनिवार-रविवारी दुपारी',
-  b_weekend_evening: 'शनिवार-रविवारी संध्याकाळी',
-  b_weekend_night: 'शनिवार-रविवारी रात्री',
+  est_bucket: '{bucket} இங்கே கரண்ட் பொதுவாக சுமார் {dur} போகும்.',
+  est_all: 'இங்கே கரண்ட் பொதுவாக சுமார் {dur} போகும்.',
+  est_n: 'கடந்த {n} முறைகளை வைத்து.',
+  est_longer: 'இந்த முறை வழக்கத்தைவிட அதிக நேரம் ஆகிவிட்டது.',
+  est_none: 'இது எவ்வளவு நேரம் நீடிக்கும் என்று சொல்லும் அளவுக்குப் பழைய பதிவுகள் இன்னும் இல்லை.',
+  b_weekday_morning: 'வார நாட்களில் காலையில்',
+  b_weekday_afternoon: 'வார நாட்களில் மதியம்',
+  b_weekday_evening: 'வார நாட்களில் மாலையில்',
+  b_weekday_night: 'வார நாட்களில் இரவில்',
+  b_weekend_morning: 'சனி, ஞாயிறு காலையில்',
+  b_weekend_afternoon: 'சனி, ஞாயிறு மதியம்',
+  b_weekend_evening: 'சனி, ஞாயிறு மாலையில்',
+  b_weekend_night: 'சனி, ஞாயிறு இரவில்',
 
-  report_title: '{utility} ला कोणी कळवलं का?',
-  report_none: 'इथल्या कोणीही अजून फोन केल्याचं सांगितलेलं नाही.',
-  report_done: 'एका शेजाऱ्याने {time} ला {utility} ला फोन केला. पुन्हा फोन करायची गरज नाही.',
-  report_me: 'तुम्ही {time} ला {utility} ला फोन केला.',
-  report_call: '{phone} ला फोन करा',
-  report_call_aria: '{utility} ला {phone} वर फोन करा',
-  report_called_btn: 'मी फोन केला',
-  report_solo: '{utility} ला कळवा · {phone}',
+  report_title: 'மின்வாரியத்துக்கு யாராவது சொன்னார்களா?',
+  report_line: 'TNPDCL மின்னகம் · 24 மணி நேரமும்',
+  report_none: 'இங்கே யாரும் இன்னும் போன் செய்ததாகச் சொல்லவில்லை.',
+  report_done: 'ஒரு பக்கத்து வீட்டுக்காரர் {time} மணிக்கு மின்வாரியத்துக்கு போன் செய்தார். மறுபடியும் அழைக்க வேண்டாம்.',
+  report_me: 'நீங்கள் {time} மணிக்கு மின்வாரியத்துக்கு போன் செய்தீர்கள்.',
+  report_call: '{phone} அழையுங்கள்',
+  report_call_aria: 'மின்வாரியத்தை {phone} எண்ணில் அழையுங்கள்',
+  report_called_btn: 'நான் போன் செய்துவிட்டேன்',
+  report_solo: 'மின்வாரியத்துக்குச் சொல்லுங்கள் · {phone}',
 
-  ask_title: 'वीज आली का?',
-  ask_body: "तुम्ही {time} ला 'वीज गेली' दाबलं होतं.",
-  ask_when: 'वीज कधी आली?',
-  ask_now: 'हो — आत्ताच',
-  ask_hour: 'हो — साधारण तासाभरापूर्वी',
-  ask_unsure: 'हो, पण कधी ते माहीत नाही',
-  ask_still: 'नाही, अजून गेलेलीच आहे',
-  auto_closed: 'तुमची मागची नोंद 12 तासांहून जास्त वेळ उघडी होती, म्हणून ती वेळेशिवाय बंद केली. ती सरासरीत मोजली जाणार नाही.',
+  ask_title: 'கரண்ட் வந்துவிட்டதா?',
+  ask_body: "நீங்கள் {time} 'கரண்ட் போச்சு' அழுத்தினீர்கள்.",
+  ask_now: 'ஆமாம் — இப்போதுதான்',
+  ask_hour: 'ஆமாம் — சுமார் ஒரு மணி நேரம் முன்பு',
+  ask_unsure: 'ஆமாம், ஆனால் எப்போது என்று தெரியாது',
+  ask_still: 'இல்லை, இன்னும் கரண்ட் இல்லை',
+  auto_closed: 'உங்கள் கடைசிப் பதிவு 12 மணி நேரத்துக்கு மேல் திறந்திருந்தது, அதனால் நேரம் இல்லாமல் மூடப்பட்டது. அது சராசரியில் சேர்க்கப்படாது.',
 
-  log_title: 'माझी नोंदवही',
-  log_empty: 'अजून एकही नोंद नाही. वीज गेली की मोठं बटण दाबा.',
-  log_count: '{n} वेळा वीज गेली',
-  log_total: 'एकूण {dur} वीज नव्हती',
-  log_longest: 'सगळ्यात जास्त: {dur} ({date})',
-  log_shortest: 'सगळ्यात कमी: {dur}',
-  log_common_time: 'नेहमीची वेळ: {part}',
-  part_morning: 'सकाळ',
-  part_afternoon: 'दुपार',
-  part_evening: 'संध्याकाळ',
-  part_night: 'रात्र',
-  log_worst_day: 'सगळ्यात वाईट दिवस: {day} ({n} वेळा)',
-  log_unknown: 'किती वेळ ते माहीत नाही',
-  log_open: 'अजून गेलेली',
-  log_area_title: 'तुमचा भाग',
-  log_area_line: 'मागच्या 90 दिवसांत {n} वेळा · सगळ्यात कमी {min} · सगळ्यात जास्त {max}',
-  log_area_none: 'तुमच्या भागात अजून एकही पूर्ण नोंद नाही.',
-  log_only_known: 'सरासरीत फक्त सुरुवात आणि शेवट दोन्ही माहीत असलेल्या नोंदी मोजल्या जातात.',
+  log_title: 'என் பதிவேடு',
+  log_empty: 'இன்னும் எதுவும் இல்லை. கரண்ட் போனால், பெரிய பட்டனை அழுத்துங்கள்.',
+  log_count: '{n} முறை கரண்ட் போனது',
+  log_total: 'மொத்தம் {dur} கரண்ட் இல்லை',
+  log_longest: 'அதிக நேரம்: {dur} ({date})',
+  log_shortest: 'குறைந்த நேரம்: {dur}',
+  log_common_time: 'வழக்கமான நேரம்: {part}',
+  part_morning: 'காலை',
+  part_afternoon: 'மதியம்',
+  part_evening: 'மாலை',
+  part_night: 'இரவு',
+  log_worst_day: 'மோசமான நாள்: {day} ({n} முறை)',
+  log_unknown: 'எவ்வளவு நேரம் என்று தெரியாது',
+  log_open: 'இன்னும் இல்லை',
+  log_area_title: 'உங்கள் ஏரியா',
+  log_area_line: 'கடந்த 90 நாட்களில் {n} முறை · குறைந்தது {min} · அதிகம் {max}',
+  log_area_none: 'உங்கள் ஏரியாவில் இன்னும் முடிந்த பதிவு எதுவும் இல்லை.',
+  log_only_known: 'தொடக்கமும் முடிவும் தெரிந்த பதிவுகள் மட்டுமே சராசரியில் சேர்க்கப்படும்.',
 
-  nav_log: 'माझी नोंदवही',
-  nav_neighbours: 'शेजारी',
-  nav_settings: 'सेटिंग्ज',
-  nav_back: 'मागे',
+  nav_log: 'என் பதிவேடு',
+  nav_neighbours: 'அக்கம்பக்கம்',
+  nav_settings: 'அமைப்புகள்',
+  nav_back: 'பின்செல்',
 
-  nb_title: 'शेजारी',
-  nb_count: '{place} मध्ये {n} फोनवर Lantern आहे.',
-  nb_rule: 'इथे किमान 3 फोनवर Lantern असल्याशिवाय, वीज फक्त तुमची गेली का ते Lantern सांगत नाही. तोपर्यंत ते "माहीत नाही" असंच सांगतं.',
-  nb_invite: 'शेजाऱ्यांना बोलवा',
-  nb_invite_text: 'वीज फक्त एका घरची गेली की पूर्ण भागाची, ते Lantern सांगतं. {place} मध्ये जोडा:',
-  nb_copied: 'लिंक कॉपी झाली.',
-  nb_link: 'किंवा ही लिंक पाठवा:',
-  nb_offline: 'शेजारी बघण्यासाठी इंटरनेट लागेल.',
-  nb_solo: 'तुम्ही अजून तुमचा भाग जोडलेला नाही.',
+  nb_title: 'அக்கம்பக்கம்',
+  nb_count: '{place}-இல் {n} போன்களில் Lantern உள்ளது.',
+  nb_rule: 'இங்கே குறைந்தது 3 போன்களில் Lantern வரும் வரை, கரண்ட் உங்களுக்கு மட்டும் போனதா என்று அது சொல்லாது. அதுவரை "தெரியாது" என்றே சொல்லும்.',
+  nb_invite: 'அக்கம்பக்கத்தினரை அழையுங்கள்',
+  nb_invite_text: 'கரண்ட் ஒரு வீட்டில் மட்டும் போனதா, முழு ஏரியாவிலும் போனதா என்று Lantern சொல்லும். {place}-இல் சேருங்கள்:',
+  nb_copied: 'லிங்க் காப்பி ஆனது.',
+  nb_link: 'அல்லது இந்த லிங்கை அனுப்புங்கள்:',
+  nb_offline: 'அக்கம்பக்கத்தைப் பார்க்க இன்டர்நெட் வேண்டும்.',
+  nb_solo: 'நீங்கள் இன்னும் உங்கள் ஏரியாவைச் சேர்க்கவில்லை.',
 
-  set_title: 'सेटिंग्ज',
-  set_lang: 'भाषा',
-  set_area: 'भाग बदला',
-  set_area_now: 'भाग: {place} ({pin})',
-  set_area_none: 'भाग नाही — Lantern एकट्याने वापरत आहात.',
-  privacy_title: 'Lantern काय साठवतं',
-  privacy_1: 'या फोनवर: तुमच्या नोंदी, तुमची भाषा आणि तुमचा भाग.',
-  privacy_2: 'भाग जोडला तरच सर्व्हरवर: पिनकोड आणि इमारतीचं नाव, तुम्ही बटण दाबल्याच्या वेळा, आणि या फोनसाठी एक रँडम नंबर. नाव नाही, फोन नंबर नाही, GPS नाही, खातं नाही.',
-  privacy_3: 'शेजाऱ्यांना फक्त आकडे दिसतात — कोणत्या घराने दाबलं ते कधीच नाही.',
-  privacy_4: 'यावरून कोणी कधी घरी आणि जागं आहे ते कळू शकतं. म्हणूनच यात नाव नाही, आणि इथून सगळं पुसता येतं.',
-  delete_btn: 'माझा सगळा डेटा पुसा',
-  delete_confirm: 'या फोनवरच्या आणि सर्व्हरवरच्या सगळ्या नोंदी पुसायच्या? हे परत आणता येणार नाही.',
-  deleted: 'पुसलं.',
-  about: 'Neighborhood Hacks 2026 साठी बनवलं, Claude Code या AI कोडिंग सहाय्यकाच्या मदतीने.',
-  source: 'सोर्स कोड',
+  set_title: 'அமைப்புகள்',
+  set_lang: 'மொழி',
+  set_area: 'ஏரியாவை மாற்றுங்கள்',
+  set_area_now: 'ஏரியா: {place} ({pin})',
+  set_area_none: 'ஏரியா இல்லை — Lantern-ஐ தனியாகப் பயன்படுத்துகிறீர்கள்.',
+  privacy_title: 'Lantern எதைச் சேமிக்கிறது',
+  privacy_1: 'இந்த போனில்: உங்கள் பதிவுகள், உங்கள் மொழி, உங்கள் ஏரியா.',
+  privacy_2: 'ஏரியாவைச் சேர்த்தால் மட்டும் சர்வரில்: பின்கோடு, கட்டடத்தின் பெயர், நீங்கள் அழுத்திய நேரங்கள், இந்த போனுக்கான ஒரு ரேண்டம் எண். பெயர் இல்லை, போன் நம்பர் இல்லை, GPS இல்லை, கணக்கு இல்லை.',
+  privacy_3: 'அக்கம்பக்கத்தினருக்கு எண்ணிக்கை மட்டுமே தெரியும் — எந்த வீடு அழுத்தியது என்பது ஒருபோதும் தெரியாது.',
+  privacy_4: 'யார் எப்போது வீட்டில் விழித்திருக்கிறார்கள் என்பது இதிலிருந்து தெரியவரலாம். அதனால்தான் இதில் பெயர் இல்லை, இங்கிருந்து எல்லாவற்றையும் அழிக்கலாம்.',
+  delete_btn: 'என் தரவு முழுவதையும் அழியுங்கள்',
+  delete_confirm: 'இந்த போனிலும் சர்வரிலும் உள்ள எல்லாப் பதிவுகளையும் அழிக்கவா? இதைத் திரும்பப் பெற முடியாது.',
+  deleted: 'அழிக்கப்பட்டது.',
+  about: 'Neighborhood Hacks 2026-க்காக, Claude Code என்ற AI கோடிங் உதவியாளரின் உதவியுடன் உருவாக்கப்பட்டது.',
+  source: 'சோர்ஸ் கோடு',
 
-  offline_chip: 'इंटरनेट नाही — तरीही सगळं चालतं',
-  pending_chip: 'इंटरनेट नाही · {n} नोंदी पाठवायच्या बाकी',
-  install: 'Lantern होम स्क्रीनवर ठेवा',
+  offline_chip: 'இன்டர்நெட் இல்லை — ஆனாலும் எல்லாம் வேலை செய்யும்',
+  pending_chip: 'இன்டர்நெட் இல்லை · {n} பதிவுகள் அனுப்பக் காத்திருக்கின்றன',
+  install: 'Lantern-ஐ ஹோம் ஸ்கிரீனில் சேருங்கள்',
 };
 
 const hi = {
-  lang_title: 'भाषा चुनें',
   setup_area_title: 'आपका घर कहाँ है?',
   setup_area_why: 'Lantern आपकी रिपोर्ट को पड़ोसियों की रिपोर्ट के साथ गिनता है — ताकि पता चले कि बिजली सिर्फ़ आपके घर की गई है या पूरे इलाके की।',
   setup_privacy: 'सिर्फ़ पिनकोड और बिल्डिंग या गली का नाम। न नाम, न फ़ोन नंबर, न GPS, न अकाउंट।',
@@ -370,6 +369,7 @@ const hi = {
   b_weekend_night: 'शनिवार-रविवार को रात में',
 
   report_title: 'क्या किसी ने {utility} को बताया?',
+  report_line: 'TNPDCL मिन्नगम · 24 घंटे',
   report_none: 'यहाँ अभी किसी ने नहीं बताया कि उन्होंने फ़ोन किया है।',
   report_done: 'एक पड़ोसी ने {time} बजे {utility} को फ़ोन किया। दोबारा फ़ोन करने की ज़रूरत नहीं।',
   report_me: 'आपने {time} बजे {utility} को फ़ोन किया।',
@@ -380,7 +380,6 @@ const hi = {
 
   ask_title: 'क्या बिजली आ गई?',
   ask_body: "आपने {time} बजे 'बिजली गई' दबाया था।",
-  ask_when: 'बिजली कब आई?',
   ask_now: 'हाँ — अभी-अभी',
   ask_hour: 'हाँ — करीब एक घंटा पहले',
   ask_unsure: 'हाँ, पर पता नहीं कब',
@@ -442,15 +441,15 @@ const hi = {
   install: 'Lantern को होम स्क्रीन पर रखें',
 };
 
-const STRINGS = { en, mr, hi };
+export const STRINGS = { en, ta, hi };
 
 export function langInfo(code) {
-  return LANGS.find((l) => l.code === code) || LANGS[2];
+  return LANGS.find((l) => l.code === code) || LANGS[0];
 }
 
 export function makeT(code) {
   const table = STRINGS[code] || en;
-  const fixed = { utility: REGION.utility[code] || REGION.utility.en, phone: REGION.phone };
+  const fixed = { utility: REGION.utility[code] || REGION.utility.en, phone: REGION.phoneLabel };
   return (key, vars = {}) => {
     const s = table[key] ?? en[key] ?? key;
     return s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : k in fixed ? fixed[k] : m));
@@ -461,9 +460,9 @@ export function fmtDuration(ms, code) {
   const total = Math.max(0, Math.round(ms / 60e3));
   const h = Math.floor(total / 60);
   const m = total % 60;
-  if (code === 'mr') {
-    if (!h) return `${m} मिनिटे`;
-    return m ? `${h} तास ${m} मि.` : `${h} तास`;
+  if (code === 'ta') {
+    if (!h) return `${m} நிமிடம்`;
+    return m ? `${h} மணி ${m} நிமி.` : `${h} மணி நேரம்`;
   }
   if (code === 'hi') {
     const hours = h === 1 ? 'घंटा' : 'घंटे';

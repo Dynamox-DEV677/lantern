@@ -2,7 +2,7 @@
   "name": "Lantern — power cut log",
   "short_name": "Lantern",
   "description": "Is the power cut just your flat, or the whole area? Works with no network.",
-  "lang": "mr",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

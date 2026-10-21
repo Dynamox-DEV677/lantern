@@ -33,11 +33,9 @@ try {
 
   await b.reload();
   await sleep(1500);
-  check('app opens with no network', (await b.view()) === 'lang', await b.text('h1'));
-  await b.shot('1-offline-language');
+  check('app opens with no network, in English', (await b.view()) === 'area' && (await b.text('h1')) === 'Where is your home?', await b.text('h1'));
+  await b.shot('1-offline-first-screen');
 
-  await b.click('[data-lang=en]');
-  await sleep(300);
   await b.click('[data-act=solo]');
   await sleep(300);
   check('power-on screen offline', (await b.view()) === 'on', await b.text('h1'));

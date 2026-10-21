@@ -12,7 +12,7 @@ Ask each neighbour two questions:
 
 ## Neighbour 1
 
-- **Who / where:** (e.g. "2nd floor, retired, reads Marathi only")
+- **Who / where:** (e.g. "2nd floor, retired, reads Tamil only")
 - **When I asked:** (date, time)
 - **What they do when the power goes:**
   > "…"
@@ -44,7 +44,7 @@ Ask each neighbour two questions:
 
 ## What happens on my street when it goes
 
-Who shouts to whom? Who leans out of a window? Who walks downstairs to look? Who calls 1912, and how long until someone does?
+Who shouts to whom? Who leans out of a window? Who walks downstairs to look? Who calls the EB (Minnagam, 94987 94987), and how long until someone does?
 
 -
 

@@ -10,7 +10,7 @@ const $live = document.getElementById('live');
 const $toast = document.getElementById('toast');
 
 const S = {
-  lang: null,
+  lang: 'en',
   deviceId: null,
   area: null, // { code, pin, place }
   solo: false,
@@ -28,7 +28,7 @@ const S = {
   lastCheckin: 0,
 };
 
-let t = makeT('en');
+let t = makeT(S.lang);
 let sending = null;
 let syncing = null;
 
@@ -91,22 +91,18 @@ function backButton() {
   return `<button class="btn" data-act="go" data-view="home">${T('nav_back')}</button>`;
 }
 
-function viewLang() {
-  return `
-    <header class="top">${lantern(true)}<h1 tabindex="-1" class="title">
-      <span lang="mr">भाषा निवडा</span><br><span lang="hi">भाषा चुनें</span><br><span lang="en">Choose language</span>
-    </h1></header>
-    <div class="stack">
-      ${LANGS.map(
-        (l) =>
-          `<button class="btn big-text" lang="${l.code}" data-act="lang" data-lang="${l.code}">${esc(l.name)}</button>`,
-      ).join('')}
-    </div>`;
+// English by default; every other language is one tap away on the first screen and in Settings.
+function langRow() {
+  return `<div class="langs" role="group" aria-label="Language">${LANGS.map(
+    (l) =>
+      `<button class="btn" lang="${l.code}" data-act="lang" data-lang="${l.code}" aria-pressed="${S.lang === l.code}">${esc(l.name)}</button>`,
+  ).join('')}</div>`;
 }
 
 function viewArea() {
   const a = S.area || {};
   return `
+    ${langRow()}
     <header class="top"><h1 tabindex="-1" class="title">${T('setup_area_title')}</h1></header>
     <p>${T('setup_area_why')}</p>
     <p class="muted">${T('setup_privacy')}</p>
@@ -127,6 +123,7 @@ function viewArea() {
 function viewJoin() {
   const i = S.invite;
   return `
+    ${langRow()}
     <header class="top">${lantern(true)}<h1 tabindex="-1" class="title">${T('join_title')}</h1></header>
     <p class="big-text">${esc(i.place)} · ${esc(i.pin)}</p>
     <p class="muted">${T('setup_privacy')}</p>
@@ -272,14 +269,15 @@ function estimateHtml(c) {
 function reportHtml(c) {
   const call = `<a class="btn" href="tel:${esc(REGION.phone)}" aria-label="${T('report_call_aria')}">${iconPhone()}<span>${T('report_call')}</span></a>`;
   const mark = c.called ? '' : `<button class="btn" data-act="called">${T('report_called_btn')}</button>`;
+  const line = `<p class="muted">${T('report_line')}</p>`;
   if (!neighbourLayer()) {
-    return `<h2>${T('report_solo')}</h2><div class="row">${call}</div>`;
+    return `<h2>${T('report_solo')}</h2>${line}<div class="row">${call}</div>`;
   }
-  let line;
-  if (c.called) line = t('report_me', { time: time(c.called) });
-  else if (S.status && S.status.calledAt && S.status.fetchedAt >= c.start) line = t('report_done', { time: time(S.status.calledAt) });
-  else line = t('report_none');
-  return `<h2>${T('report_title')}</h2><p>${esc(line)}</p><div class="row">${call}${mark}</div>`;
+  let said;
+  if (c.called) said = t('report_me', { time: time(c.called) });
+  else if (S.status && S.status.calledAt && S.status.fetchedAt >= c.start) said = t('report_done', { time: time(S.status.calledAt) });
+  else said = t('report_none');
+  return `<h2>${T('report_title')}</h2>${line}<p>${esc(said)}</p><div class="row">${call}${mark}</div>`;
 }
 
 function viewLog() {
@@ -373,7 +371,6 @@ function viewSettings() {
 }
 
 const VIEWS = {
-  lang: viewLang,
   area: viewArea,
   join: viewJoin,
   ask: viewAsk,
@@ -384,7 +381,7 @@ const VIEWS = {
 };
 
 function render({ focus = true } = {}) {
-  document.documentElement.lang = S.lang || 'mr';
+  document.documentElement.lang = S.lang;
   if (S.view === 'ask' && !openCut()) S.view = 'home';
   $app.innerHTML = VIEWS[S.view]();
   $app.dataset.view = S.view === 'home' ? (openCut() ? 'out' : 'on') : S.view;
@@ -480,7 +477,6 @@ async function setLang(code) {
   S.lang = code;
   t = makeT(code);
   await db.kvSet('lang', code);
-  if (S.view === 'lang') S.view = S.invite ? 'join' : !S.area && !S.solo ? 'area' : 'home';
   render();
 }
 
@@ -658,7 +654,8 @@ function readInvite() {
 
 async function start() {
   try {
-    S.lang = (await db.kvGet('lang')) || null;
+    const saved = await db.kvGet('lang');
+    if (LANGS.some((l) => l.code === saved)) S.lang = saved;
     S.deviceId = await db.kvGet('deviceId');
     if (!S.deviceId) {
       S.deviceId = uid();
@@ -675,13 +672,12 @@ async function start() {
     console.warn('Storage unavailable', err);
     S.deviceId = S.deviceId || uid();
   }
-  t = makeT(S.lang || 'en');
+  t = makeT(S.lang);
 
   const invite = readInvite();
   if (invite && (!S.area || S.area.code !== invite.code)) S.invite = invite;
 
-  if (!S.lang) S.view = 'lang';
-  else if (S.invite) S.view = 'join';
+  if (S.invite) S.view = 'join';
   else if (!S.area && !S.solo) S.view = 'area';
   else S.view = 'home';
 

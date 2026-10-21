@@ -4,7 +4,7 @@
 
 ## Elevator pitch (1–2 sentences)
 
-When the power goes, Lantern tells you in one tap whether it's just your flat or the whole area, how long cuts here usually last, and whether a neighbour has already called MSEDCL. It works with no network at all, because during a cut the router is dead.
+When the power goes, Lantern tells you in one tap whether it's just your flat or the whole area, how long cuts here usually last, and whether a neighbour has already called the EB. It works with no network at all, because during a cut the router is dead.
 
 ## What is the specific problem, and how do you know it's real?
 
@@ -22,9 +22,9 @@ Nobody needs an app to know the power is out. What people don't know is whether 
   - Others out: "[7 of 9] nearby are out — it's the area."
   - Only you: "You *may* be the only one out", then the MCB steps, with the warning not to keep resetting it.
 - How long cuts here usually last, from past cuts at the same time of day.
-- "Has anyone told MSEDCL?" so five people don't all call, or nobody does.
+- "Has anyone told the EB?", with a button to call Minnagam (94987 94987), so five people don't all call, or nobody does.
 - My log and my pattern, which work with just one user.
-- Marathi first, then Hindi, then English.
+- Opens in English; Tamil and Hindi are one tap away. The Tamil is how Chennai actually talks: "கரண்ட் போச்சு".
 
 ## Real use
 
@@ -39,7 +39,7 @@ Nobody needs an app to know the power is out. What people don't know is whether 
 - Supabase free tier. Tables are locked (RLS on, no policies). The app can only call a few database functions, which return counts, never device ids.
 - Times come from the server's clock. Offline reports send "seconds ago", so a phone with the wrong clock can't skew anything.
 - Tested with a script that kills the server and uses the app with no network, and an end-to-end test of all three states against the real SQL.
-- **AI disclosure:** I built this with Claude Code, an AI coding assistant, which wrote the code from my brief. [Say what you did yourself: the interviews, the design decisions, the Marathi, the testing on real phones, getting neighbours to install it.]
+- **AI disclosure:** I built this with Claude Code, an AI coding assistant, which wrote the code from my brief. [Say what you did yourself: the interviews, the design decisions, the Tamil, the testing on real phones, getting neighbours to install it.]
 
 ## Accessibility
 
@@ -64,4 +64,4 @@ Other real ones:
 
 - Get more flats in the lane, so the area signal is reliable.
 - Let someone log a cut for a neighbour without a phone.
-- Compare logged cuts against what MSEDCL publishes.
+- Compare logged cuts against the outage notices TNPDCL publishes.

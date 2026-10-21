@@ -2,7 +2,7 @@
 
 import assert from 'node:assert/strict';
 import * as L from '../src/logic.js';
-import { makeT, fmtDuration } from '../src/i18n.js';
+import { makeT, fmtDuration, LANGS, REGION, STRINGS } from '../src/i18n.js';
 
 let passed = 0;
 function test(name, fn) {
@@ -131,15 +131,16 @@ test('pattern of nothing is null', () => {
 });
 
 // --- area codes, clocks ---
-test('area codes normalise spacing and case, keep Devanagari', () => {
-  assert.equal(L.areaCode('411038', '  Shanti   Nagar '), '411038-shanti-nagar');
-  assert.equal(L.areaCode('411038', 'शांती नगर'), '411038-शांती-नगर');
-  assert.equal(L.areaCode('411038', 'Bldg #4, Lane 2'), '411038-bldg-4-lane-2');
+test('area codes normalise spacing and case, keep Tamil and Devanagari', () => {
+  assert.equal(L.areaCode('600041', '  Gandhi   Nagar '), '600041-gandhi-nagar');
+  assert.equal(L.areaCode('600041', 'காந்தி நகர்'), '600041-காந்தி-நகர்');
+  assert.equal(L.areaCode('600041', 'गांधी नगर'), '600041-गांधी-नगर');
+  assert.equal(L.areaCode('600041', 'Bldg #4, 2nd Street'), '600041-bldg-4-2nd-street');
 });
 test('pincodes', () => {
-  assert.ok(L.validPin('411038'));
-  assert.ok(!L.validPin('011038'));
-  assert.ok(!L.validPin('41103'));
+  assert.ok(L.validPin('600041'));
+  assert.ok(!L.validPin('060041'));
+  assert.ok(!L.validPin('60004'));
 });
 test('seconds ago is clamped and never negative', () => {
   assert.equal(L.secondsAgo(now - 90e3, now), 90);
@@ -148,28 +149,34 @@ test('seconds ago is clamped and never negative', () => {
 });
 
 // --- words ---
-test('every language has the MCB warning and names the board', () => {
-  for (const lang of ['mr', 'hi', 'en']) {
+test('English is the default language', () => {
+  assert.equal(LANGS[0].code, 'en');
+  assert.deepEqual(LANGS.map((l) => l.code), ['en', 'ta', 'hi']);
+});
+test('every language has the MCB warning and names the board and number', () => {
+  for (const lang of ['en', 'ta', 'hi']) {
     const t = makeT(lang);
     assert.match(t('mcb_1'), /MCB/);
     assert.match(t('mcb_rccb'), /RCCB\/ELCB/);
-    assert.match(t('mcb_last'), /1912/);
-    assert.doesNotMatch(t('mcb_1') + t('mcb_warn'), /fuse|फ्यूज|फ्यूज़/i);
+    assert.match(t('mcb_last'), /94987 94987/);
+    assert.doesNotMatch(t('mcb_1') + t('mcb_warn'), /fuse|फ्यूज|ஃபியூஸ்/i);
   }
+  assert.equal(REGION.phone, '9498794987');
 });
-test('every key exists in every language', async () => {
-  const en = makeT('en');
-  for (const lang of ['mr', 'hi']) {
-    const t = makeT(lang);
-    for (const key of ['btn_out', 'btn_back', 'verdict_only', 'mcb_warn', 'ask_unsure', 'auto_closed', 'privacy_4']) {
-      assert.notEqual(t(key), en(key), `${lang}.${key} is untranslated`);
+test('every English string exists in Tamil and Hindi, with the same blanks', () => {
+  const blanks = (s) => (s.match(/\{\w+\}/g) || []).filter((b) => b !== '{utility}' && b !== '{phone}').sort();
+  for (const lang of ['ta', 'hi']) {
+    for (const [key, text] of Object.entries(STRINGS.en)) {
+      assert.ok(STRINGS[lang][key], `${lang}.${key} is missing`);
+      assert.deepEqual(blanks(STRINGS[lang][key]), blanks(text), `${lang}.${key} has different blanks`);
     }
   }
 });
 test('durations read naturally', () => {
   assert.equal(fmtDuration(74 * M, 'en'), '1h 14m');
   assert.equal(fmtDuration(9 * M, 'en'), '9 min');
-  assert.equal(fmtDuration(120 * M, 'mr'), '2 तास');
+  assert.equal(fmtDuration(120 * M, 'ta'), '2 மணி நேரம்');
+  assert.equal(fmtDuration(74 * M, 'ta'), '1 மணி 14 நிமி.');
   assert.equal(fmtDuration(60 * M, 'hi'), '1 घंटा');
 });
 

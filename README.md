@@ -4,9 +4,9 @@
 
 1. **Is it just my flat, or the whole area?** Those need opposite actions: check your own MCB board, or don't bother and wait.
 2. **How long do cuts here usually last?** Worked out from what past cuts on this street actually did.
-3. **Has anyone told MSEDCL yet?** So five neighbours don't all call, and it's never the case that nobody does.
+3. **Has anyone told the EB yet?** So five neighbours don't all call Minnagam (TNPDCL's 24-hour line, 94987 94987), and it's never the case that nobody does.
 
-Built for Neighborhood Hacks (16–24 Oct 2026). Marathi first, then Hindi, then English.
+Built for Neighborhood Hacks (16–24 Oct 2026), for a street in Chennai. It opens in English, with Tamil and Hindi one tap away on the first screen and in Settings.
 
 > **AI disclosure:** the code in this repo was written with **Claude Code**, Anthropic's AI coding assistant, working from my brief. The design decisions, the neighbour interviews and the testing on real phones are mine.
 
@@ -98,7 +98,7 @@ Without Supabase settings it runs in solo mode. To turn the neighbour layer on:
 
 ```bash
 npm install                   # dev only: PGlite, an in-process Postgres for the SQL tests
-npm test                      # the rules (24 checks) and the database functions as `anon` (12 checks)
+npm test                      # the rules and every translation (25 checks), and the database functions as `anon` (12 checks)
 node scripts/qa-offline.mjs     # aeroplane mode in headless Chrome
 node scripts/qa-neighbours.mjs  # all three states end to end, against the real SQL in PGlite
 node scripts/test-supabase.mjs  # the live project, with only the public key: locks hold, functions work, test rows removed
@@ -109,7 +109,7 @@ node scripts/test-supabase.mjs  # the live project, with only the public key: lo
 | | |
 |---|---|
 | `src/logic.js` | Every rule and threshold, as named constants. Pure functions. |
-| `src/i18n.js` | Every word on screen in Marathi, Hindi and English, and the electricity board's name and number. |
+| `src/i18n.js` | Every word on screen in English, Tamil and Hindi, and the electricity board's name and number (`REGION`, one block to change for another state). |
 | `src/app.js` | The screens. |
 | `src/store.js` | IndexedDB. |
 | `src/sync.js` | The send queue and the database calls. |
@@ -117,6 +117,6 @@ node scripts/test-supabase.mjs  # the live project, with only the public key: lo
 | `supabase/migrations/0001_lantern.sql` | Tables, locks and functions. |
 | `supabase/stats.sql` | Numbers for the write-up: households, cuts, shortest, longest, single-flat cuts. |
 
-The Marathi and Hindi are first drafts and need a native speaker to read them.
+The Tamil and Hindi are first drafts and need a native speaker to read them. The Tamil is written the way people in Chennai talk ("கரண்ட் போச்சு", "MCB trip ஆயிடுச்சு"), not textbook Tamil.
 
 MIT licence.

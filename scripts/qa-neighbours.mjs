@@ -16,7 +16,7 @@ const here = (f) => fileURLToPath(new URL(f, import.meta.url));
 const MOCK = 54329;
 const PORT = 4221;
 const API = `http://localhost:${MOCK}`;
-const AREA = '411038-test-lane';
+const AREA = '600041-test-street';
 
 const build = (env) => {
   const r = spawnSync(process.execPath, [here('./build.mjs')], { env: { ...process.env, ...env }, encoding: 'utf8' });
@@ -58,11 +58,9 @@ const refresh = async () => {
 
 try {
   // Join through an invite link, like a neighbour would.
-  await b.goto(`http://localhost:${PORT}/?a=${AREA}&n=Test%20Lane`);
+  await b.goto(`http://localhost:${PORT}/?a=${AREA}&n=Test%20Street`);
   await sleep(1200);
-  await b.click('[data-lang=en]');
-  await sleep(300);
-  check('invite link offers to join the area', (await b.view()) === 'join', await b.text('main'));
+  check('invite link offers to join the area, in English', (await b.view()) === 'join' && /Join your neighbours/.test(await b.text('h1')), await b.text('main'));
   await b.click('[data-act=join]');
   await sleep(1200);
   const me = await myId();
@@ -96,12 +94,13 @@ try {
   await rpc('lantern_called', { p_device: C, p_seconds_ago: 0 });
   await refresh();
   let rep = await b.text('#report');
-  check('sees that a neighbour already called', /A neighbour called MSEDCL at/.test(rep), rep);
+  check('sees that a neighbour already called', /A neighbour called the EB at/.test(rep) && /94987 94987/.test(rep), rep);
+  check('call button dials Minnagam', (await b.js(`document.querySelector('#report a[href^="tel:"]').getAttribute('href')`)) === 'tel:9498794987');
   await b.shot('6-area');
   await b.click('[data-act=called]');
   await sleep(800);
   rep = await b.text('#report');
-  check('"I\'ve called" is remembered', /You called MSEDCL at/.test(rep), rep);
+  check('"I\'ve called" is remembered', /You called the EB at/.test(rep), rep);
 
   // Neighbours' power comes back while mine doesn't.
   await rpc('lantern_report_back', { p_device: B, p_seconds_ago: 0, p_unknown: false });
@@ -145,24 +144,26 @@ try {
   await b.click('[data-view=neighbours]');
   await sleep(1200);
   const nb = await b.text('main');
-  check('neighbours screen counts phones', /3 phones in Test Lane use Lantern/.test(nb), nb);
+  check('neighbours screen counts phones', /3 phones in Test Street use Lantern/.test(nb), nb);
   check('invite link carries the area', (await b.text('#invite-url')).includes(`a=${AREA}`));
   await b.shot('8-neighbours');
 
-  // Marathi.
+  // Tamil, switched in Settings, and remembered after a reload.
   await b.click('[data-view=home]');
   await sleep(300);
   await b.click('[data-view=settings]');
   await sleep(300);
-  await b.click('[data-lang=mr]');
+  await b.click('[data-lang=ta]');
   await sleep(300);
-  await b.click('[data-view=home]');
-  await sleep(300);
+  await b.reload();
+  await sleep(1500);
+  check('Tamil is remembered', (await b.text('h1')) === 'கரண்ட் இருக்கு', await b.text('h1'));
   await b.click('[data-act=out]');
   await sleep(1500);
   v = await b.text('#verdict');
-  check('Marathi: may be only you + MCB', /कदाचित फक्त तुमचीच वीज गेली आहे/.test(v) && /MCB/.test(v), v);
-  await b.shot('9-marathi-only-you');
+  check('Tamil: may be only you + MCB warning', /ஒருவேளை உங்களுக்கு மட்டும்தான்/.test(v) && /MCB/.test(v) && /தூக்காதீர்கள்/.test(v), v);
+  check('Tamil: status and button', (await b.text('h1')) === 'கரண்ட் இல்லை' && /கரண்ட் வந்துடுச்சு/.test(await b.text('.back')));
+  await b.shot('9-tamil-only-you');
   await b.click('.back');
   await sleep(1000);
 
@@ -174,7 +175,7 @@ try {
   await sleep(2000);
   const left = (await admin(`select (select count(*) from public.lantern_outages where device_id = '${me}')::int o, (select count(*) from public.lantern_devices where device_id = '${me}')::int d`))[0];
   check('delete removes every server row for this phone', left.o === 0 && left.d === 0, JSON.stringify(left));
-  check('and starts the app fresh', (await b.view()) === 'lang');
+  check('and starts the app fresh, back in English', (await b.view()) === 'area' && (await b.text('h1')) === 'Where is your home?');
 } finally {
   b.close();
   mock.kill();
