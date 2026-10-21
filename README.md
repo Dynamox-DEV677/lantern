@@ -101,6 +101,7 @@ npm install                   # dev only: PGlite, an in-process Postgres for the
 npm test                      # the rules (24 checks) and the database functions as `anon` (12 checks)
 node scripts/qa-offline.mjs     # aeroplane mode in headless Chrome
 node scripts/qa-neighbours.mjs  # all three states end to end, against the real SQL in PGlite
+node scripts/test-supabase.mjs  # the live project, with only the public key: locks hold, functions work, test rows removed
 ```
 
 ## Files
